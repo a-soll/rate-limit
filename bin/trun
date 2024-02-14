@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p test_build
+cd test_build
+cmake ../test
+make
