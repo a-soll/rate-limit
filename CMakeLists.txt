@@ -13,8 +13,16 @@ add_library(rate_limit)
 
 find_package(Boost 1.83.0 REQUIRED)
 
-target_include_directories(rate_limit PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${Boost_INCLUDE_DIRS})
+# target_include_directories(rate_limit PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${Boost_INCLUDE_DIRS})
+
+target_include_directories(rate_limit PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/;${Boost_INCLUDE_DIRS}>"
+    $<INSTALL_INTERFACE:include>  # <prefix>/include/mylib
+)
 
 target_sources(rate_limit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/rate_limit.cpp
 )
+
+enable_testing()
+add_subdirectory(test)
